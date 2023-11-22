@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useMemo, useEffect} from 'react';
+import Rmemo from "./Rmemo";
+import RuseCallback from "./RuseCallback";
+import RuseMemo from "./RuseMemo";
 
 const RuseState = () => {
     const [name, setName] = useState('Học useState');
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
+    const [job, setJob] = useState('');
+    const [jobs, setJobs] = useState([]);
 
-    const handleClick = function () {
-        //setCount(count + 1)
-
-        setCount((prevState => prevState + 1))
-    };
+    const handleClick = useCallback(() => {
+        setCount(prevState => prevState + 1)
+    }, []);
 
     const [infoUser, setInfoUser] = useState({
         name: 'Hoang Cong Dung',
@@ -20,11 +23,27 @@ const RuseState = () => {
             ...infoUser,
             address: "Ha Noi"
         })
-    }
+    };
 
+    const btnAddJob = () => {
+        setJobs(prevState => [...prevState, job]);
+        setJob('')
 
-    console.log('re-render');
+    };
 
+    const total = useMemo(() => {
+        let result = jobs.reduce((result, job) => {
+            console.log('jobs');
+
+            return result + parseInt(job);
+        }, 0);
+
+        return result;
+    }, [jobs]);
+
+    useEffect(() => {
+        console.log('Mounted');
+    });
 
     return (
         <div>
@@ -35,7 +54,20 @@ const RuseState = () => {
             <h3>VD 2 :</h3>
             <p>{ JSON.stringify(infoUser) }</p>
             <button onClick={handleUpdate}>Update</button>
-            <h3>---- END useState</h3>
+            <h3>To do list: </h3>
+            <input value={job} onChange={e => setJob(e.target.value)}/>
+            <button onClick={btnAddJob}>Add job</button>
+            <ul>
+                {jobs.map((job, index) => (
+                        <li key={index}>{job}</li>
+                    )
+                )}
+            </ul>
+            <p>Tổng: {total}</p>
+
+            <Rmemo />
+            <RuseCallback handleClick={handleClick}/>
+            <RuseMemo/>
         </div>
     );
 };
