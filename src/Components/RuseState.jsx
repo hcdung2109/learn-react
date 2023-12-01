@@ -2,6 +2,7 @@ import React, {useState, useCallback, useMemo, useEffect} from 'react';
 import Rmemo from "./Rmemo";
 import RuseCallback from "./RuseCallback";
 import RuseMemo from "./RuseMemo";
+import RuseContext from "./RuseContext";
 
 const RuseState = () => {
     const [name, setName] = useState('Học useState');
@@ -68,6 +69,7 @@ const RuseState = () => {
             <Rmemo />
             <RuseCallback handleClick={handleClick}/>
             <RuseMemo/>
+            <RuseContext/>
         </div>
     );
 };
