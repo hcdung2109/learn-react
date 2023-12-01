@@ -1,19 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
 import RuseState from "./Components/RuseState";
 import RuseRef from "./Components/RuseRef";
-import {useState,useContext} from "react";
+import {useState, createContext} from "react";
 
-const testContext =  useContext(); // return object gồm provider & consumer
+export const TestContext = createContext(); // return object gồm provider & consumer
 
 function App() {
+    const [dulieu, setDulieu] = useState('test truyen du lieu');
 
-  return (
-    <div className="App">
-      <RuseState/>
-      <RuseRef/>
-    </div>
-  );
+    return (
+        <TestContext.Provider value={dulieu}>
+            <div className="App">
+                <RuseState/>
+                <RuseRef/>
+            </div>
+        </TestContext.Provider>
+    );
 }
 
 export default App;
