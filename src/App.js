@@ -2,6 +2,7 @@ import './App.css';
 import RuseState from "./Components/RuseState";
 import RuseRef from "./Components/RuseRef";
 import {useState, createContext} from "react";
+import RuseImperativeHandle from "./Components/RuseImperativeHandle";
 
 export const TestContext = createContext(); // return object gồm provider & consumer
 
@@ -13,6 +14,7 @@ function App() {
             <div className="App">
                 <RuseState/>
                 <RuseRef/>
+                <RuseImperativeHandle/>
             </div>
         </TestContext.Provider>
     );
